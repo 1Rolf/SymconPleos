@@ -1,0 +1,219 @@
+<style>
+    /* Keep the visualization's body margins (docs/research/symcon-sdk.md, "HTML-SDK tile"). */
+    html {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    body {
+        flex: 1 1 auto;
+        min-height: 0;
+        container-type: size;
+    }
+
+    /* The text grows with the tile, with the font size of the visualization as the lower bound. */
+    .tile {
+        box-sizing: border-box;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 4cqh;
+        font-size: clamp(1em, 6cqmin, 2em);
+        line-height: 1.25;
+        color: var(--content-color);
+        font-family: inherit;
+    }
+
+    .head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 0.5em;
+    }
+
+    .label {
+        opacity: 0.65;
+    }
+
+    .soc {
+        font-size: 2.4em;
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .bar {
+        height: 0.5em;
+        margin-top: min(0.4em, 2cqh);
+        border-radius: 999px;
+        background: var(--content-color);
+        background: color-mix(in srgb, var(--content-color) 15%, transparent);
+        overflow: hidden;
+    }
+
+    .bar > div {
+        height: 100%;
+        width: 0;
+        border-radius: inherit;
+        background: var(--accent-color);
+        transition: width 0.3s;
+    }
+
+    .plug {
+        width: 1.8em;
+        height: 1.8em;
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .plug svg {
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
+        display: none;
+    }
+
+    .plug.connected .icon-plug,
+    .plug.disconnected .icon-plug,
+    .plug.charging .icon-bolt {
+        display: block;
+    }
+
+    .plug.disconnected {
+        opacity: 0.35;
+    }
+
+    .plug.charging {
+        color: var(--accent-color);
+    }
+
+    .plug .none {
+        display: none;
+    }
+
+    .plug.unknown .none {
+        display: block;
+    }
+
+    /* The rows sit together at the bottom; the gaps shrink on small tiles and the labels shorten on narrow ones. */
+    .rows {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        column-gap: 1em;
+        row-gap: min(0.3em, 1.5cqh);
+    }
+
+    .rows .label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .rows .value {
+        text-align: right;
+        white-space: nowrap;
+        font-weight: 600;
+    }
+</style>
+
+<div class="tile">
+    <div>
+        <div class="head">
+            <div>
+                <div class="label" id="text-soc"></div>
+                <div class="soc" id="soc">—</div>
+            </div>
+            <div class="plug unknown" id="plug">
+                <span class="none">—</span>
+                <svg class="icon-plug" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2a1 1 0 0 1 1 1v4h6V3a1 1 0 1 1 2 0v4h1a1 1 0 0 1 1 1v3a6 6 0 0 1-5 5.92V21a1 1 0 1 1-2 0v-4.08A6 6 0 0 1 7 11V8H6a1 1 0 0 1 0-2h1V3a1 1 0 0 1 1-1z"/></svg>
+                <svg class="icon-bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 2 4 14h6.5L9.5 22 20 9.5h-6.6z"/></svg>
+            </div>
+        </div>
+        <div class="bar"><div id="soc-bar"></div></div>
+    </div>
+    <div class="rows">
+        <div class="label" id="text-range"></div><div class="value" id="range">—</div>
+        <div class="label" id="text-odometer"></div><div class="value" id="odometer">—</div>
+        <div class="label" id="text-report-time"></div><div class="value" id="report-time">—</div>
+    </div>
+</div>
+
+<script type="application/json" id="state">{{STATE}}</script>
+<script>
+    // Texts are translated here in the viewer's language, with literal text only: see docs/research/symcon-sdk.md.
+    let reportTime = null;
+
+    document.getElementById('text-soc').textContent = translate('State of charge');
+    document.getElementById('text-range').textContent = translate('Range');
+    document.getElementById('text-odometer').textContent = translate('Odometer');
+    document.getElementById('text-report-time').textContent = translate('Last report');
+
+    function formatNumber(number) {
+        if (number === null) {
+            return '—';
+        }
+        return number.value.toLocaleString(undefined, {minimumFractionDigits: number.digits, maximumFractionDigits: number.digits}) + number.suffix;
+    }
+
+    function formatAge(timestamp) {
+        if (timestamp === null) {
+            return '—';
+        }
+        const minutes = Math.max(0, Math.floor((Date.now() / 1000 - timestamp) / 60));
+        if (minutes < 1) {
+            return translate('just now');
+        }
+        if (minutes < 60) {
+            return translate('%d min ago').replace('%d', minutes);
+        }
+        if (minutes < 48 * 60) {
+            return translate('%d h ago').replace('%d', Math.floor(minutes / 60));
+        }
+        return translate('%d days ago').replace('%d', Math.floor(minutes / 1440));
+    }
+
+    function plugTitle(status) {
+        switch (status) {
+            case 'charging':
+                return translate('Charging');
+            case 'connected':
+                return translate('Connected');
+            case 'disconnected':
+                return translate('Disconnected');
+            default:
+                return '';
+        }
+    }
+
+    function render(state) {
+        document.getElementById('soc').textContent = formatNumber(state.stateOfCharge);
+        document.getElementById('soc-bar').style.width = state.stateOfCharge === null ? '0' : Math.min(100, Math.max(0, state.stateOfCharge.value)) + '%';
+        document.getElementById('range').textContent = formatNumber(state.range);
+        document.getElementById('odometer').textContent = formatNumber(state.odometer);
+        reportTime = state.reportTime;
+        document.getElementById('report-time').textContent = formatAge(reportTime);
+
+        const plug = document.getElementById('plug');
+        let status = 'unknown';
+        if (state.charging === true) {
+            status = 'charging';
+        } else if (state.plugConnected !== null) {
+            status = state.plugConnected ? 'connected' : 'disconnected';
+        }
+        plug.className = 'plug ' + status;
+        plug.title = plugTitle(status);
+    }
+
+    function handleMessage(data) {
+        render(typeof data === 'string' ? JSON.parse(data) : data);
+    }
+
+    render(JSON.parse(document.getElementById('state').textContent));
+    setInterval(function () {
+        document.getElementById('report-time').textContent = formatAge(reportTime);
+    }, 30000);
+</script>

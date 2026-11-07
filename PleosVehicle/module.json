@@ -1,0 +1,18 @@
+{
+    "id": "{B2E3CFBD-1954-0C92-02B1-F44BBDFA75A7}",
+    "name": "Pleos Vehicle",
+    "type": 3,
+    "vendor": "Pleos",
+    "aliases": [
+        "Pleos Vehicle"
+    ],
+    "url": "https://github.com/1Rolf/SymconPleos/blob/main/PleosVehicle/README.md",
+    "parentRequirements": [
+        "{EE23C3DC-C9D9-F25B-5589-F4A4FD6AE524}"
+    ],
+    "childRequirements": [],
+    "implemented": [
+        "{74300188-365B-1EAC-1E1F-78D6BCECBA04}"
+    ],
+    "prefix": "PLEOS"
+}

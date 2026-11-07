@@ -1,0 +1,12 @@
+{
+    "translations": {
+        "de": {
+            "Vehicles": "Fahrzeuge",
+            "Name": "Name",
+            "Model": "Modell",
+            "VIN": "FIN",
+            "The API Key covers no Vehicle. Common causes: the key was created by a secondary user instead of the vehicle owner, the key was issued before the Vehicle was added to the account (create a new key), or the connected services of the Vehicle are switched off.": "Der API-Schlüssel umfasst kein Fahrzeug. Häufige Ursachen: Der Schlüssel wurde von einem Zweitnutzer statt vom Fahrzeughalter erstellt, der Schlüssel wurde ausgestellt, bevor das Fahrzeug zum Konto hinzugefügt wurde (neuen Schlüssel erstellen), oder die vernetzten Dienste des Fahrzeugs sind ausgeschaltet.",
+            "The vehicle list could not be loaded. Please check that this Configurator is connected to an active Pleos Account.": "Die Fahrzeugliste konnte nicht geladen werden. Bitte prüfen, ob dieser Konfigurator mit einem aktiven Pleos Account verbunden ist."
+        }
+    }
+}

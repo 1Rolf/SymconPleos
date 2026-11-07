@@ -1,0 +1,161 @@
+{
+    "elements": [
+        {
+            "type": "ValidationTextBox",
+            "name": "VIN",
+            "caption": "VIN",
+            "validate": "^([A-HJ-NPR-Z0-9]{17})?$"
+        },
+        {
+            "type": "NumberSpinner",
+            "name": "UpdateInterval",
+            "caption": "Polling interval",
+            "suffix": "min",
+            "minimum": 1
+        },
+        {
+            "type": "ExpansionPanel",
+            "caption": "Units",
+            "items": [
+                {
+                    "type": "Select",
+                    "name": "DistanceUnit",
+                    "caption": "Distance",
+                    "options": [
+                        {
+                            "caption": "Kilometers (km)",
+                            "value": "km"
+                        },
+                        {
+                            "caption": "Miles (mi)",
+                            "value": "mi"
+                        }
+                    ]
+                },
+                {
+                    "type": "Select",
+                    "name": "SpeedUnit",
+                    "caption": "Speed",
+                    "options": [
+                        {
+                            "caption": "Kilometers per hour (km/h)",
+                            "value": "km/h"
+                        },
+                        {
+                            "caption": "Miles per hour (mph)",
+                            "value": "mph"
+                        }
+                    ]
+                },
+                {
+                    "type": "Select",
+                    "name": "TemperatureUnit",
+                    "caption": "Temperature",
+                    "options": [
+                        {
+                            "caption": "Celsius (°C)",
+                            "value": "C"
+                        },
+                        {
+                            "caption": "Fahrenheit (°F)",
+                            "value": "F"
+                        }
+                    ]
+                },
+                {
+                    "type": "Select",
+                    "name": "PressureUnit",
+                    "caption": "Tire pressure",
+                    "options": [
+                        {
+                            "caption": "Bar (bar)",
+                            "value": "bar"
+                        },
+                        {
+                            "caption": "Kilopascal (kPa)",
+                            "value": "kPa"
+                        },
+                        {
+                            "caption": "Pounds per square inch (psi)",
+                            "value": "psi"
+                        }
+                    ]
+                },
+                {
+                    "type": "Label",
+                    "caption": "Changing a unit does not convert values that are already archived."
+                },
+                {
+                    "type": "CheckBox",
+                    "name": "OdometerMileIsKm",
+                    "caption": "Odometer reported as miles but is km"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "type": "Button",
+            "caption": "Update now",
+            "onClick": "PLEOS_Update($id);"
+        },
+        {
+            "type": "Button",
+            "caption": "Run Availability Check",
+            "onClick": "PLEOS_RunAvailabilityCheck($id);"
+        },
+        {
+            "type": "Label",
+            "caption": "The Availability Check requests every Data Group once and shows each Data Point's latest value. The Data Points with a valid value are ticked as a proposal: review it and apply to create their variables."
+        },
+        {
+            "type": "List",
+            "name": "AvailabilityResult",
+            "caption": "Availability Check",
+            "rowCount": 10,
+            "add": false,
+            "delete": false,
+            "columns": [
+                {
+                    "name": "DataGroup",
+                    "caption": "Data Group",
+                    "width": "200px"
+                },
+                {
+                    "name": "Result",
+                    "caption": "Result",
+                    "width": "auto"
+                },
+                {
+                    "name": "ReportTime",
+                    "caption": "Report Time",
+                    "width": "200px"
+                }
+            ],
+            "values": []
+        },
+        {
+            "type": "Button",
+            "caption": "Export diagnostics",
+            "download": "pleos-diagnostics.json",
+            "onClick": "echo 'data:application/json;base64,' . base64_encode(PLEOS_ExportDiagnostics($id));"
+        }
+    ],
+    "status": [
+        {
+            "code": 201,
+            "icon": "error",
+            "caption": "No active Pleos Account"
+        },
+        {
+            "code": 202,
+            "icon": "error",
+            "caption": "Vehicle not covered by API Key"
+        },
+        {
+            "code": 203,
+            "icon": "inactive",
+            "caption": "Pleos Account rate limited"
+        }
+    ]
+}

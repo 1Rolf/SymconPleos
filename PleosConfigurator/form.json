@@ -1,0 +1,48 @@
+{
+    "elements": [],
+    "actions": [
+        {
+            "type": "Label",
+            "name": "EmptyHint",
+            "caption": "The API Key covers no Vehicle. Common causes: the key was created by a secondary user instead of the vehicle owner, the key was issued before the Vehicle was added to the account (create a new key), or the connected services of the Vehicle are switched off.",
+            "visible": false
+        },
+        {
+            "type": "Label",
+            "name": "Unavailable",
+            "caption": "The vehicle list could not be loaded. Please check that this Configurator is connected to an active Pleos Account.",
+            "visible": false
+        },
+        {
+            "type": "Configurator",
+            "name": "Vehicles",
+            "caption": "Vehicles",
+            "rowCount": 10,
+            "add": false,
+            "delete": true,
+            "sort": {
+                "column": "name",
+                "direction": "ascending"
+            },
+            "columns": [
+                {
+                    "caption": "Name",
+                    "name": "name",
+                    "width": "auto"
+                },
+                {
+                    "caption": "Model",
+                    "name": "model",
+                    "width": "200px"
+                },
+                {
+                    "caption": "VIN",
+                    "name": "vin",
+                    "width": "250px"
+                }
+            ],
+            "values": []
+        }
+    ],
+    "status": []
+}

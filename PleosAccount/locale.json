@@ -1,0 +1,28 @@
+{
+    "translations": {
+        "de": {
+            "Brand": "Marke",
+            "Please select": "Bitte auswählen",
+            "Hyundai": "Hyundai",
+            "Kia": "Kia",
+            "Genesis": "Genesis",
+            "Client ID": "Client-ID",
+            "Client Secret": "Client-Secret",
+            "Test connection": "Verbindung testen",
+            "Connection successful": "Verbindung erfolgreich",
+            "Invalid Client ID, Client Secret or Brand, or expired API Key": "Client-ID, Client-Secret oder Marke ungültig oder API-Schlüssel abgelaufen",
+            "Please select the Brand and enter Client ID and Client Secret, then apply the changes": "Bitte die Marke auswählen, Client-ID und Client-Secret eingeben und die Änderungen übernehmen",
+            "The Pleos API is currently not reachable, please try again later": "Die Pleos-API ist derzeit nicht erreichbar, bitte später erneut versuchen",
+            "The Pleos API refused the Access Token request, please try again later": "Die Pleos-API hat die Anfrage des Access Tokens abgelehnt, bitte später erneut versuchen",
+            "The Pleos API refused the Access Token request (%s), retrying later": "Die Pleos-API hat die Anfrage des Access Tokens abgelehnt (%s), neuer Versuch später",
+            "Access Token request failed: %s": "Anfrage des Access Tokens fehlgeschlagen: %s",
+            "The Pleos Account is busy, please try again": "Der Pleos Account ist beschäftigt, bitte erneut versuchen",
+            "Access denied: the API Key may be used by another client or revoked": "Zugriff verweigert: Der API-Schlüssel wird möglicherweise von einem anderen Client verwendet oder wurde widerrufen",
+            "The Pleos API limits the number of requests, please try again later": "Die Pleos-API begrenzt die Anzahl der Anfragen, bitte später erneut versuchen",
+            "The Pleos API limits the number of requests, pausing all requests until %s": "Die Pleos-API begrenzt die Anzahl der Anfragen, alle Anfragen pausieren bis %s",
+            "Rate limited: requests are paused for a few minutes": "Anfragen begrenzt: Die Anfragen pausieren für einige Minuten",
+            "no response": "keine Antwort",
+            "The Pleos API is not reachable (%s), retrying at the next poll": "Die Pleos-API ist nicht erreichbar (%s), neuer Versuch bei der nächsten Abfrage"
+        }
+    }
+}

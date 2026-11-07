@@ -1,0 +1,61 @@
+{
+    "elements": [
+        {
+            "type": "Select",
+            "name": "Brand",
+            "caption": "Brand",
+            "options": [
+                {
+                    "caption": "Please select",
+                    "value": ""
+                },
+                {
+                    "caption": "Hyundai",
+                    "value": "hyundai"
+                },
+                {
+                    "caption": "Kia",
+                    "value": "kia"
+                },
+                {
+                    "caption": "Genesis",
+                    "value": "genesis"
+                }
+            ]
+        },
+        {
+            "type": "ValidationTextBox",
+            "name": "ClientID",
+            "caption": "Client ID"
+        },
+        {
+            "type": "PasswordTextBox",
+            "name": "ClientSecret",
+            "caption": "Client Secret"
+        }
+    ],
+    "actions": [
+        {
+            "type": "Button",
+            "caption": "Test connection",
+            "onClick": "echo PLEOS_TestConnection($id);"
+        }
+    ],
+    "status": [
+        {
+            "code": 201,
+            "icon": "error",
+            "caption": "Invalid Client ID, Client Secret or Brand, or expired API Key"
+        },
+        {
+            "code": 202,
+            "icon": "error",
+            "caption": "Access denied: the API Key may be used by another client or revoked"
+        },
+        {
+            "code": 203,
+            "icon": "inactive",
+            "caption": "Rate limited: requests are paused for a few minutes"
+        }
+    ]
+}

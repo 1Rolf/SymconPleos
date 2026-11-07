@@ -1,0 +1,18 @@
+{
+    "id": "{AA63ED55-C54D-ADFA-0163-838792287158}",
+    "name": "Pleos Account",
+    "type": 2,
+    "vendor": "Pleos",
+    "aliases": [
+        "Pleos Account"
+    ],
+    "url": "https://github.com/1Rolf/SymconPleos/blob/main/PleosAccount/README.md",
+    "parentRequirements": [],
+    "childRequirements": [
+        "{74300188-365B-1EAC-1E1F-78D6BCECBA04}"
+    ],
+    "implemented": [
+        "{EE23C3DC-C9D9-F25B-5589-F4A4FD6AE524}"
+    ],
+    "prefix": "PLEOS"
+}

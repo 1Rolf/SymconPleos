@@ -1,0 +1,18 @@
+{
+    "id": "{A45A2D09-28DF-7103-AB89-7F604D50C6FC}",
+    "name": "Pleos Configurator",
+    "type": 4,
+    "vendor": "Pleos",
+    "aliases": [
+        "Pleos Configurator"
+    ],
+    "url": "https://github.com/1Rolf/SymconPleos/blob/main/PleosConfigurator/README.md",
+    "parentRequirements": [
+        "{EE23C3DC-C9D9-F25B-5589-F4A4FD6AE524}"
+    ],
+    "childRequirements": [],
+    "implemented": [
+        "{74300188-365B-1EAC-1E1F-78D6BCECBA04}"
+    ],
+    "prefix": "PLEOS"
+}

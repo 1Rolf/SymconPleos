@@ -1,0 +1,12 @@
+{
+    "id": "{46F59C02-81FC-86D4-4ADB-F41DEF994E02}",
+    "author": "Rolf",
+    "name": "Pleos",
+    "url": "https://github.com/1Rolf/SymconPleos",
+    "version": "0.1",
+    "build": 1,
+    "date": 1794085558,
+    "compatibility": {
+        "version": "9.0"
+    }
+}
