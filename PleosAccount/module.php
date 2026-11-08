@@ -35,6 +35,8 @@ class PleosAccount extends IPSModuleStrict
     {
         parent::Create();
 
+        // Switched off, the Account sends nothing, so another system can use the same API Key meanwhile.
+        $this->RegisterPropertyBoolean('Active', true);
         $this->RegisterPropertyString('Brand', '');
         $this->RegisterPropertyString('ClientID', '');
         $this->RegisterPropertyString('ClientSecret', '');
@@ -55,7 +57,7 @@ class PleosAccount extends IPSModuleStrict
         // A changed API Key or Brand makes the current Access Token useless, and deserves a token request at once.
         $this->SetBuffer('AccessToken', '');
         $this->endTokenPause();
-        if (!$this->isConfigured()) {
+        if (!$this->isSwitchedOn() || !$this->isConfigured()) {
             $this->SetStatus(IS_INACTIVE);
             return;
         }
@@ -94,6 +96,9 @@ class PleosAccount extends IPSModuleStrict
         if ($query !== []) {
             $path .= '?' . http_build_query($query);
         }
+        if (!$this->isSwitchedOn()) {
+            return $this->notSent('Account is switched off');
+        }
         if (!$this->isConfigured()) {
             return $this->notSent('Account is not configured');
         }
@@ -120,6 +125,9 @@ class PleosAccount extends IPSModuleStrict
      */
     public function TestConnection(): string
     {
+        if (!$this->isSwitchedOn()) {
+            return $this->Translate('The Pleos Account is switched off');
+        }
         if (!$this->isConfigured()) {
             return $this->Translate('Please select the Brand and enter Client ID and Client Secret, then apply the changes');
         }
@@ -234,6 +242,11 @@ class PleosAccount extends IPSModuleStrict
     private function unlock(): void
     {
         IPS_SemaphoreLeave('PleosAccount.' . $this->InstanceID);
+    }
+
+    private function isSwitchedOn(): bool
+    {
+        return $this->ReadPropertyBoolean('Active');
     }
 
     private function isConfigured(): bool

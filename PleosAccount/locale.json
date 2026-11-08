@@ -1,6 +1,8 @@
 {
     "translations": {
         "de": {
+            "Active": "Aktiv",
+            "The Pleos Account is switched off": "Der Pleos Account ist ausgeschaltet",
             "Brand": "Marke",
             "Please select": "Bitte auswählen",
             "Hyundai": "Hyundai",

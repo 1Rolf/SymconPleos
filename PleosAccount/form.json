@@ -1,6 +1,11 @@
 {
     "elements": [
         {
+            "type": "CheckBox",
+            "name": "Active",
+            "caption": "Active"
+        },
+        {
             "type": "Select",
             "name": "Brand",
             "caption": "Brand",

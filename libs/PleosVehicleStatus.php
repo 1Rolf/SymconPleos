@@ -13,7 +13,7 @@ include_once __DIR__ . '/PleosDataGroupResult.php';
  */
 final class PleosVehicleStatus
 {
-    /** No Pleos Account connected, or one that is neither active nor rate limited. */
+    /** No Pleos Account connected, or one in an error status (invalid API Key, access denied). */
     public const NO_ACTIVE_ACCOUNT = 201;
 
     /** The API Key no longer covers this Vehicle. */
@@ -24,6 +24,8 @@ final class PleosVehicleStatus
 
     /**
      * After applying the configuration: inactive without a VIN, else the status the Account implies or active.
+     * An inactive Account (switched off or not configured) makes the Vehicle inactive too, not faulty.
+     * With a VIN, the Vehicle is inactive only for that reason, so an active Account clears it again.
      * This clears a "not covered" status until the next poll.
      */
     public static function whenApplied(bool $vinSet, ?int $accountStatus): int
@@ -70,6 +72,7 @@ final class PleosVehicleStatus
     {
         return match ($accountStatus) {
             IS_ACTIVE                      => null,
+            IS_INACTIVE                    => IS_INACTIVE,
             PleosApi::ACCOUNT_RATE_LIMITED => self::ACCOUNT_RATE_LIMITED,
             default                        => self::NO_ACTIVE_ACCOUNT,
         };
@@ -77,6 +80,6 @@ final class PleosVehicleStatus
 
     private static function clearAccountError(int $current): ?int
     {
-        return in_array($current, [self::NO_ACTIVE_ACCOUNT, self::ACCOUNT_RATE_LIMITED], true) ? IS_ACTIVE : null;
+        return in_array($current, [IS_INACTIVE, self::NO_ACTIVE_ACCOUNT, self::ACCOUNT_RATE_LIMITED], true) ? IS_ACTIVE : null;
     }
 }

@@ -119,8 +119,8 @@ Die Kachel zeigt Ladezustand, Reichweite, Kilometerstand, die Meldezeit der Batt
 | Code | Status | Bedeutung |
 |---|---|---|
 | 102 | Aktiv | Das Fahrzeug wird abgefragt |
-| 104 | Inaktiv | Keine FIN eingetragen |
-| 201 | Kein aktiver Pleos Account | Die Instanz ist mit keinem Pleos Account verbunden, oder der Pleos Account ist nicht aktiv. Das Fahrzeug zeigt das, sobald der Pleos Account seinen Status ändert, und fragt weiter ab, damit sich der Pleos Account erholen kann. |
+| 104 | Inaktiv | Keine FIN eingetragen, oder der Pleos Account ist inaktiv (ausgeschaltet oder nicht konfiguriert). Ein inaktiver Pleos Account ist kein Fehler; das Fahrzeug folgt ihm, sobald er wieder aktiv ist. |
+| 201 | Kein aktiver Pleos Account | Die Instanz ist mit keinem Pleos Account verbunden, oder der Pleos Account meldet einen Fehler (API-Schlüssel ungültig, Zugriff verweigert). Das Fahrzeug zeigt das, sobald der Pleos Account seinen Status ändert, und fragt weiter ab, damit sich der Pleos Account erholen kann. |
 | 202 | Fahrzeug nicht vom API-Schlüssel abgedeckt | Die API meldet das Fahrzeug als nicht registriert (4101) oder ohne Einwilligung (5006). Stellen Sie einen neuen API-Schlüssel aus, der das Fahrzeug umfasst. |
 | 203 | Pleos Account durch Anfragelimit pausiert | Die Pleos-API begrenzt die Anzahl der Anfragen, und der Pleos Account pausiert sie für einige Minuten. Danach wird das Fahrzeug wieder abgefragt. |
 

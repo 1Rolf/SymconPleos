@@ -119,8 +119,8 @@ The tile shows the state of charge, the range, the odometer, the Battery Report 
 | Code | Status | Meaning |
 |---|---|---|
 | 102 | Active | The vehicle is polled |
-| 104 | Inactive | No VIN entered |
-| 201 | No active Pleos Account | The instance is not connected to a Pleos Account, or the Pleos Account is not active. The vehicle shows it as soon as the Pleos Account changes its status and keeps polling, so the Pleos Account can recover. |
+| 104 | Inactive | No VIN entered, or the Pleos Account is inactive (switched off or not configured). An inactive Pleos Account is no error; the vehicle follows it when it becomes active again. |
+| 201 | No active Pleos Account | The instance is not connected to a Pleos Account, or the Pleos Account reports an error (invalid API Key, access denied). The vehicle shows it as soon as the Pleos Account changes its status and keeps polling, so the Pleos Account can recover. |
 | 202 | Vehicle not covered by API Key | The API reports the vehicle as unregistered (4101) or without consent (5006). Issue a new API Key that covers the vehicle. |
 | 203 | Pleos Account rate limited | The Pleos API limits the number of requests and the Pleos Account pauses them for a few minutes. The vehicle is polled again afterwards. |
 

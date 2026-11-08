@@ -94,6 +94,7 @@ Details are in the README of each module.
 **Use the API Key in one place only.** The API accepts only one Access Token per API Key at a time; fetching a new one silently invalidates the previous one.
 If evcc, Home Assistant, a second Pleos Account or any other client uses the same API Key at the same time, the clients keep revoking each other's Access Token and requests fail with "access denied".
 Use each API Key in a single Pleos Account only, and connect all vehicles of that key to it.
+To move the API Key between two Symcon systems, clear "Active" in the Pleos Account on the one system and set it on the other, see [Pleos Account](PleosAccount/README.en.md#1-features).
 
 **Only the last Vehicle Report.** The API returns the state the vehicle last uploaded to the manufacturer's backend.
 It never contacts or wakes the vehicle, and there is no way to force an upload.

@@ -94,6 +94,7 @@ Details stehen in der README des jeweiligen Moduls.
 **Den API-Schlüssel nur an einer Stelle verwenden.** Die API akzeptiert pro API-Schlüssel nur ein Access Token gleichzeitig; ein neues macht das vorherige ohne Rückmeldung ungültig.
 Nutzen evcc, Home Assistant, ein zweiter Pleos Account oder ein anderer Client denselben API-Schlüssel gleichzeitig, entziehen sich die Clients gegenseitig das Access Token und Anfragen scheitern mit „Zugriff verweigert“.
 Verwenden Sie jeden API-Schlüssel nur in einem einzigen Pleos Account und verbinden Sie alle Fahrzeuge dieses Schlüssels damit.
+Um den API-Schlüssel zwischen zwei Symcon-Systemen zu wechseln, im Pleos Account des einen Systems „Aktiv“ abwählen und im anderen auswählen, siehe [Pleos Account](PleosAccount/README.md#1-funktionsumfang).
 
 **Nur die letzte Fahrzeugmeldung.** Die API liefert den Zustand, den das Fahrzeug zuletzt an das Backend des Herstellers gesendet hat.
 Sie kontaktiert oder weckt das Fahrzeug nie, und ein Senden lässt sich nicht erzwingen.
